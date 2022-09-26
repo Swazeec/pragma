@@ -1,0 +1,62 @@
+*{
+    box-sizing: border-box;
+    font-family: 'Gudea';
+    color: black;
+}
+header{
+    background-color: #16697A;
+    height: 20vw;
+    max-height: 220px;
+    min-height: 100px;
+}
+footer{
+    background-color: #16697A;
+    height: 60;
+    margin-top: auto;
+}
+section{
+    margin-top: auto;
+}
+#logo{
+    height: 20vw;
+    max-height: 200px;
+    min-height: 100px;
+}
+h1{
+    font-family: 'Dosis';
+    color: #EDE7E3;
+    text-transform: uppercase;
+}
+
+#newTask, #filter {
+    cursor: pointer;
+}
+
+.toDo, .delete{
+    background-color: #FD7C7C;
+}
+.doing, .modify{
+    background-color: #FDCF91;
+}
+.done{
+    background-color: #B0C9AF;
+}
+.high{
+    background-color: red;
+}
+.medium{
+    background-color: #FFA500;
+}
+.low{
+    background-color: green;
+}
+.bg-isabelline{
+    background-color: #EDE7E3;
+}
+
+.btn-ming{
+    background-color: #16697A;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
