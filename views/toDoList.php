@@ -44,25 +44,32 @@ ob_start();
         </div>
         <div id="taskList" class="row px-lg-5 px-3">
             <!-- boucle pour afficher toutes les tâches -->
+            <?php 
+            for($i=0; $i<count($tasks); $i++) : ?>
             <div class="col-12 card p-0 mb-1 bg-isabelline border-0">
                 <div class="card-body p-1 row">
                     <div class="col-12 col-md-auto d-flex mb-2 mb-md-0" >
-                        <div class="rounded-circle py-1 px-2 mx-2 priority high"><i class="bi bi-exclamation-lg text-white"></i></div>
-                        <div class="toDo px-2 text-center py-1 mx-2 text-white">TO DO</div>
-                        <div class="rounded-pill py-1 px-3 mx-2 bg-white d-md-none">11/10/2022</div>
-                        <button class="btn rounded-circle py-1 px-2 mx-2 bg-white d-md-none" title="lire les commentaires"><i class="bi bi-chat-text"></i></button>
+                        <div class="rounded-circle py-1 px-2 mx-2 priority-<?=  $tasks[$i]->getPriority() ?>"><i class="bi bi-exclamation-lg text-white"></i></div>
+                        <div class="px-2 text-center py-1 mx-2 text-white state state-<?=  $tasks[$i]->getState() ?>"></div>
+                        <div class="rounded-pill py-1 px-3 mx-2 bg-white text-center d-md-none date"><?php 
+                        if($tasks[$i]->getDueDate()){ echo $tasks[$i]->getDueDate(); } else { echo "/" ; };
+                         ?></div>
+                        <button class="btn rounded-circle py-1 px-2 mx-2 bg-white d-none d-sm-block d-md-none" title="lire les commentaires"><i class="bi bi-chat-text"></i></button>
                     </div>
                     <div class=" col-12 col-md mb-2 mb-md-0">
-                        <div class="rounded-pill py-1 px-3 mx-2 bg-white">Ici, le nom d'une tâche à effectuer</div>
+                        <div class="rounded-pill py-1 px-3 mx-2 bg-white"><?=  $tasks[$i]->getName() ?></div>
                     </div>
                     <div class="col-12 col-md-auto d-flex mb-2 mb-md-0 justify-content-end">
-                        <div class=" rounded-pill py-1 px-3 mx-2 bg-white d-none d-md-block">11/10/2022</div>
-                        <button class="btn rounded-circle py-1 px-2 mx-2 bg-white d-none d-md-block" title="lire les commentaires"><i class="bi bi-chat-text"></i></button>
+                        <div class=" rounded-pill py-1 px-3 mx-2 bg-white text-center d-none d-md-block date"><?php 
+                        if($tasks[$i]->getDueDate()){ echo $tasks[$i]->getDueDate(); } else { echo "/" ; };
+                         ?></div>
+                        <button class="btn rounded-circle py-1 px-2 mx-2 bg-white d-sm-none d-md-block" title="lire les commentaires"><i class="bi bi-chat-text"></i></button>
                         <button class="btn rounded-circle py-1 px-2 mx-2 bg-primary" title="modifier"><i class="bi bi-pencil text-white"></i></button>
                         <button class="btn rounded-circle py-1 px-2 mx-2 bg-danger" title="supprimer"><i class="bi bi-x-lg text-white"></i></button>
                     </div>
                 </div>
-            </div> 
+            </div>  
+            <?php endfor ; ?>
         </div>
     </div>
 </section>

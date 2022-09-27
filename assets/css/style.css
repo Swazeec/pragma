@@ -31,23 +31,28 @@ h1{
 #newTask, #filter {
     cursor: pointer;
 }
-
-.toDo, .delete{
+.date{
+    width:112px;
+}
+.state{
+    width: 80px;
+}
+.state-1, .delete{
     background-color: #FD7C7C;
 }
-.doing, .modify{
+.state-2, .modify{
     background-color: #FDCF91;
 }
-.done{
+.state-3{
     background-color: #B0C9AF;
 }
-.high{
+.priority-3{
     background-color: red;
 }
-.medium{
+.priority-2{
     background-color: #FFA500;
 }
-.low{
+.priority-1{
     background-color: green;
 }
 .bg-isabelline{
