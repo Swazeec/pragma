@@ -49,4 +49,28 @@ class TaskManager extends Model{
         }
     }
 
+    public function addTaskBd($name, $comments, $dueDate, $priority){
+        
+        if($dueDate ===""){
+            $dueDate = null;
+        }
+        if($comments ===""){
+            $comments = null;
+        }
+
+        $req = 'INSERT INTO tasks (name, comments, dueDate, priority_id) VALUES (:name, :comments, :dueDate, :priority) ';
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt->bindValue(':comments', $comments, PDO::PARAM_STR);
+        $stmt->bindValue(':dueDate', $dueDate, PDO::PARAM_STR);
+        $stmt->bindValue(':priority', $priority, PDO::PARAM_INT);
+        $result = $stmt->execute();
+        if($result > 0){
+            $t = new Task($this->getBdd()->lastInsertId() ,$name, $comments, $dueDate, $priority, 1);
+            $this->addTask($t);
+        } else{
+            throw new Exception("Impossible d'ajouter cette tâche");
+        }
+    }
+
 }

@@ -31,4 +31,21 @@ class TasksController{
             header('Location: '.URL.'toDoList');
         }
     }
+
+    public function addTask(){
+        try{
+            $this->taskManager->addTaskBd($_POST['taskname'],$_POST['comment'],$_POST['date'],$_POST['priority']);
+        $_SESSION['alert'] = [
+            "type" => "success",
+            "msg" => "Tâche ajoutée avec succès !"
+        ];
+        header('Location: '.URL.'toDoList');
+        } catch(Exception $e){
+            $_SESSION['alert'] = [
+                "type" => "error",
+                "msg" => "Impossible d'ajouter cette tâche..."
+            ];
+            header('Location: '.URL.'toDoList');
+        }
+    }
 }

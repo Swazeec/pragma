@@ -7,7 +7,6 @@ define("URL", str_replace("index.php", "",(isset($_SERVER["HTTPS"]) ? "https": "
 
 try {
     if(empty($_GET['page'])){
-        require_once 'views/toDoList.php';
         $taskController->showTasks();
 
     } else {
@@ -18,6 +17,8 @@ try {
                     $taskController->showTasks();
                 } else if ($url[1] === 's'){
                     $taskController->deleteTask($url[2]);
+                }  else if ($url[1] === 'a'){
+                    $taskController->addTask();
                 }
                 break;
             default:

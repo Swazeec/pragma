@@ -15,7 +15,7 @@ endif;
             <div class="col col-md-8 offset-md-2 col-lg-6 offset-lg-3">
                 <!-- déclenche modale avec form ajout de tache -->
                 <p id="newTask"><i class="bi bi-plus-circle"></i> Nouvelle tâche</p>
-                <form action="" method="post" class="mb-4 text-start d-none" id="newTaskForm">
+                <form action="<?=URL?>toDoList/a" method="post" class="mb-4 text-start d-none" id="newTaskForm">
                     <div class="mb-3">
                         <label for="taskname" class="form-label">Nom de la tâche</label>
                         <input type="text" class="form-control" id="taskname" name="taskname">
@@ -29,10 +29,10 @@ endif;
                     <div class="mb-3 d-md-flex flex-column flex-md-row">
                         <div class="flex-grow-1 pe-md-2">
                             <label for="priority" class="form-label">Priorité</label>
-                            <select class="form-select" id="priority">
-                                <option value="low">Basse</option>
-                                <option value="medium">Moyenne</option>
-                                <option value="high">Haute</option>
+                            <select class="form-select" id="priority" name="priority">
+                                <option value="1">Basse</option>
+                                <option value="2">Moyenne</option>
+                                <option value="3">Haute</option>
                             </select>
                         </div>
                         <div class="flex-grow-1 ps-md-2">
@@ -60,7 +60,7 @@ endif;
                         <div class="rounded-circle py-1 px-2 mx-2 priority-<?=  $tasks[$i]->getPriority() ?>"><i class="bi bi-exclamation-lg text-white"></i></div>
                         <div class="px-2 text-center py-1 mx-2 text-white state state-<?=  $tasks[$i]->getState() ?>"></div>
                         <div class="rounded-pill py-1 px-3 mx-2 bg-white text-center d-md-none date"><?php 
-                        if($tasks[$i]->getDueDate()){ echo $tasks[$i]->getDueDate(); } else { echo "/" ; };
+                        if($tasks[$i]->getDueDate() !== null && $tasks[$i]->getDueDate() !== "0000-00-00"){ echo $tasks[$i]->getDueDate(); } else { echo "/" ; };
                          ?></div>
                         <button class="btn rounded-circle py-1 px-2 mx-2 bg-white d-none d-sm-block d-md-none" title="lire les commentaires"><i class="bi bi-chat-text"></i></button>
                     </div>
