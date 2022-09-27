@@ -1,6 +1,6 @@
 <?php
 
-class task{
+class Task{
     private $id;
     private $name;
     private $comments;

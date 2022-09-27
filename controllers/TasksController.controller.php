@@ -14,4 +14,21 @@ class TasksController{
         $tasks = $this->taskManager->getTasks();
         require_once 'views/toDoList.php';
     }
+
+    public function deleteTask($id){
+        try{
+            $this->taskManager->deleteTask($id);
+            $_SESSION['alert'] = [
+                "type" => "success",
+                "msg" => "Tâche supprimée avec succès !"
+            ];
+            header('Location: '.URL.'toDoList');
+        } catch(Exception $e) {
+            $_SESSION['alert'] = [
+                "type" => "error",
+                "msg" => "Impossible de supprimer cette tâche..."
+            ];
+            header('Location: '.URL.'toDoList');
+        }
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('controllers/TasksController.controller.php');
 $taskController = new TasksController;
 
@@ -12,8 +13,12 @@ try {
     } else {
         $url = explode('/', filter_var($_GET['page']), FILTER_SANITIZE_URL);
         switch($url[0]){
-            case "todolist":
-                $taskController->showTasks();
+            case "toDoList":
+                if(empty($url[1])){
+                    $taskController->showTasks();
+                } else if ($url[1] === 's'){
+                    $taskController->deleteTask($url[2]);
+                }
                 break;
             default:
                 throw new Exception("La page que vous demandez n'existe pas...");

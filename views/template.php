@@ -15,15 +15,15 @@
     <link rel="shortcut icon" href="assets/images/Pragma-favicon.svg" type="image/x-icon">
 </head>
 <body>
-    <main class="container-fluid">
-        <header class="row d-flex align-items-center mb-3">
+    <main class="container-fluid p-0">
+        <header class="row d-flex align-items-center px-2">
             <div class="col">
                 <a href="index.html"><img id="logo" class="img-fluid" src="assets/images/pragma-logo-transparent.svg" alt="Logo Pragma"></a>
             </div>
             <h1 class="col "><?= $title ?></h1>
         </header>
         <?= $content ?>
-        <footer class="row fixed-bottom p-1">
+        <footer class="row fixed-bottom py-1 px-2">
             <div class="col text-center p-1 m-0">
                 <a class="d-flex justify-content-center align-items-center" href="index.html"><img src="assets/images/logo-footer.svg" alt="Logo Pragma" style="height: 15px;"></a>
             </div>

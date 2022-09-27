@@ -1,7 +1,15 @@
 <?php
 ob_start();
+if(!empty($_SESSION['alert'])):
 ?>
-<section class="row p-2 mb-5">
+<div class="row d-flex justify-content-center alert alert-<?=$_SESSION['alert']['type'] ?> mt-0" role="alert">
+    <?= $_SESSION['alert']['msg'] ?>
+</div>
+<?php
+unset($_SESSION['alert']);
+endif;
+?>
+<section class="row p-2 mb-5  mt-3">
     <div class="col-12">
         <div class="row text-center mb-3">
             <div class="col col-md-8 offset-md-2 col-lg-6 offset-lg-3">
@@ -65,7 +73,9 @@ ob_start();
                          ?></div>
                         <button class="btn rounded-circle py-1 px-2 mx-2 bg-white d-sm-none d-md-block" title="lire les commentaires"><i class="bi bi-chat-text"></i></button>
                         <button class="btn rounded-circle py-1 px-2 mx-2 bg-primary" title="modifier"><i class="bi bi-pencil text-white"></i></button>
-                        <button class="btn rounded-circle py-1 px-2 mx-2 bg-danger" title="supprimer"><i class="bi bi-x-lg text-white"></i></button>
+                        <form action="<?= URL ?>toDoList/s/<?= $tasks[$i]->getId() ?>" method="post">
+                            <button class="btn rounded-circle py-1 px-2 mx-2 bg-danger" title="supprimer"><i class="bi bi-x-lg text-white"></i></button>
+                        </form>
                     </div>
                 </div>
             </div>  

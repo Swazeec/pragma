@@ -37,13 +37,13 @@ h1{
 .state{
     width: 80px;
 }
-.state-1, .delete{
+.state-1, .delete, .alert-error{
     background-color: #FD7C7C;
 }
 .state-2, .modify{
     background-color: #FDCF91;
 }
-.state-3{
+.state-3, .alert-success{
     background-color: #B0C9AF;
 }
 .priority-3{
@@ -65,3 +65,13 @@ h1{
     text-transform: uppercase;
     letter-spacing: 2px;
 }
+.alert{
+    color: white;
+    font-weight: 600;
+}
+/* .alert-success{ */
+    /* background-color: green; */
+/* } */
+/* .alert-error{ */
+    /* background-color: red; */
+/* } */
