@@ -43,7 +43,7 @@ class TasksController{
         } catch(Exception $e){
             $_SESSION['alert'] = [
                 "type" => "error",
-                "msg" => "Impossible d'ajouter cette tâche..."
+                "msg" => $e->getMessage()
             ];
             header('Location: '.URL.'toDoList');
         }

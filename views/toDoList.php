@@ -60,7 +60,7 @@ endif;
                         <div class="rounded-circle py-1 px-2 mx-2 priority-<?=  $tasks[$i]->getPriority() ?>"><i class="bi bi-exclamation-lg text-white"></i></div>
                         <div class="px-2 text-center py-1 mx-2 text-white state state-<?=  $tasks[$i]->getState() ?>"></div>
                         <div class="rounded-pill py-1 px-3 mx-2 bg-white text-center d-md-none date"><?php 
-                        if($tasks[$i]->getDueDate() !== null && $tasks[$i]->getDueDate() !== "0000-00-00"){ echo $tasks[$i]->getDueDate(); } else { echo "/" ; };
+                        if($tasks[$i]->getDueDate()){ echo $tasks[$i]->getDueDate(); } else { echo "/" ; };
                          ?></div>
                         <button class="btn rounded-circle py-1 px-2 mx-2 bg-white d-none d-sm-block d-md-none" title="lire les commentaires"><i class="bi bi-chat-text"></i></button>
                     </div>

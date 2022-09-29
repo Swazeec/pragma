@@ -12,7 +12,7 @@ class TaskManager extends Model{
 
     // on ajoute les tâches de la BDD dans le tableau de tâches
     public function loadTasks(){
-        $req = 'SELECT * from tasks';
+        $req = 'SELECT id, name, comments, DATE_FORMAT(dueDate, "%d/%m/%Y") AS dueDate, priority_id, state_id from tasks';
         $stmt = $this->getBdd()->prepare($req);
         $stmt->execute();
         $myTasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -49,28 +49,76 @@ class TaskManager extends Model{
         }
     }
 
-    public function addTaskBd($name, $comments, $dueDate, $priority){
-        
-        if($dueDate ===""){
-            $dueDate = null;
+    public function nameValidation($value){
+        $name = htmlspecialchars($value);
+        // Jusqu'à 150 caractères en BD
+        // Tous les caractères sont autorisés
+        if(strlen($name) == 0 || strlen($name) > 150 || $name === true || $name === false){
+            return false;
         }
-        if($comments ===""){
+        return $name;
+    }
+
+    public function commentsValidation($value){
+        $comments = htmlspecialchars($value);
+        // Jusqu'à 150 caractères en BD
+        // Tous les caractères sont autorisés
+        if($comments === true || $comments === false){
+            return false;
+        } elseif($comments ===""){
             $comments = null;
         }
+        return $comments;
+    }
 
-        $req = 'INSERT INTO tasks (name, comments, dueDate, priority_id) VALUES (:name, :comments, :dueDate, :priority) ';
-        $stmt = $this->getBdd()->prepare($req);
-        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-        $stmt->bindValue(':comments', $comments, PDO::PARAM_STR);
-        $stmt->bindValue(':dueDate', $dueDate, PDO::PARAM_STR);
-        $stmt->bindValue(':priority', $priority, PDO::PARAM_INT);
-        $result = $stmt->execute();
-        if($result > 0){
-            $t = new Task($this->getBdd()->lastInsertId() ,$name, $comments, $dueDate, $priority, 1);
-            $this->addTask($t);
-        } else{
-            throw new Exception("Impossible d'ajouter cette tâche");
+    public function dateValidation($value){
+        $dueDate = htmlspecialchars($value);
+        if($dueDate !== ''){
+            $dateToCompare = new DateTime($dueDate);
+            $today = new DateTime();
+            if($dateToCompare < $today || $dateToCompare === true || $dateToCompare === false){
+                return false;
+            } 
+        } else {
+            $dueDate = null;
         }
+        return $dueDate;
+    }
+
+    public function priorityValidation($value){
+        $priority = intval(htmlspecialchars($value));
+        if($priority !== 1 && $priority !== 2 && $priority !== 3){
+            return false;
+        }
+        return $priority;
+    }
+
+    public function addTaskBd($name, $comments, $dueDate, $priority){
+
+        $comments = $this->commentsValidation($comments);
+        $name = $this->nameValidation($name);
+        $dueDate = $this->dateValidation($dueDate);
+        $priority = $this->priorityValidation($priority);
+
+        if($name !== false && $comments !== false && $dueDate !== false && $priority !== false){
+
+            $req = 'INSERT INTO tasks (name, comments, dueDate, priority_id) VALUES (:name, :comments, :dueDate, :priority) ';
+            $stmt = $this->getBdd()->prepare($req);
+            $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+            $stmt->bindValue(':comments', $comments, PDO::PARAM_STR);
+            $stmt->bindValue(':dueDate', $dueDate, PDO::PARAM_STR);
+            $stmt->bindValue(':priority', $priority, PDO::PARAM_INT);
+            $result = $stmt->execute();
+            if($result > 0){
+                $t = new Task($this->getBdd()->lastInsertId() ,$name, $comments, $dueDate, $priority, 1);
+                $this->addTask($t);
+            } else{
+                throw new Exception("Impossible d'ajouter cette tâche");
+            }
+        } else {
+            throw new Exception("Une erreur est survenue lors de l'ajout de votre tâche, veuillez réessayer");
+        } 
+
     }
 
 }
