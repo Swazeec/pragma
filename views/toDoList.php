@@ -19,12 +19,12 @@ endif;
                     <div class="mb-3">
                         <label for="taskname" class="form-label">Nom de la tâche</label>
                         <input type="text" class="form-control" id="taskname" name="taskname">
-                        <div id="nameHelp" class="form-text d-none"></div>
+                        <div id="nameHelp" class="form-text d-none text-danger"></div>
                     </div>
                     <div class="mb-3">
                         <label for="comment" class="form-label">Commentaires</label>
                         <textarea name="comment" id="comment" rows="2" class="form-control"></textarea>
-                        <div id="commentHelp" class="form-text d-none"></div>
+                        <div id="commentHelp" class="form-text d-none text-danger"></div>
                     </div>
                     <div class="mb-3 d-md-flex flex-column flex-md-row">
                         <div class="flex-grow-1 pe-md-2">
@@ -34,16 +34,17 @@ endif;
                                 <option value="2">Moyenne</option>
                                 <option value="3">Haute</option>
                             </select>
+                            <div id="priorityHelp" class="form-text d-none text-danger"></div>
                         </div>
                         <div class="flex-grow-1 ps-md-2">
                             <label for="date" class="form-label">Date butoir</label>
                             <input type="date" class="form-control" id="date" name="date">
-                            <div id="dateHelp" class="form-text d-none"></div>
+                            <div id="dateHelp" class="form-text d-none text-danger"></div>
                         </div>
 
                     </div>
                     <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-ming">Ajouter</button>
+                        <button type="submit" class="btn btn-ming" id="submitBtn">Ajouter</button>
                     </div>
                 </form>
             </div>
@@ -87,4 +88,5 @@ endif;
 <?php
 $content = ob_get_clean();
 $title = "TO DO LIST";
+$script = '<script type="module" src="assets/js/addTaskVerifications.js"></script>';
 require('template.php');
