@@ -63,7 +63,7 @@ endif;
                         <div class="rounded-pill py-1 px-3 mx-2 bg-white text-center d-md-none date"><?php 
                         if($tasks[$i]->getDueDate()){ echo $tasks[$i]->getDueDate(); } else { echo "/" ; };
                          ?></div>
-                        <button class="btn rounded-circle py-1 px-2 mx-2 bg-white d-none d-sm-block d-md-none" title="lire les commentaires"><i class="bi bi-chat-text"></i></button>
+                        <button type="button" class="btn rounded-circle py-1 px-2 mx-2 bg-white d-none d-sm-block d-md-none" data-bs-toggle="modal" data-bs-target="#task<?=  $tasks[$i]->getId() ?>" title="lire les commentaires"><i class="bi bi-chat-text"></i></button>
                     </div>
                     <div class=" col-12 col-md mb-2 mb-md-0">
                         <div class="rounded-pill py-1 px-3 mx-2 bg-white"><?=  $tasks[$i]->getName() ?></div>
@@ -72,7 +72,7 @@ endif;
                         <div class=" rounded-pill py-1 px-3 mx-2 bg-white text-center d-none d-md-block date"><?php 
                         if($tasks[$i]->getDueDate()){ echo $tasks[$i]->getDueDate(); } else { echo "/" ; };
                          ?></div>
-                        <button class="btn rounded-circle py-1 px-2 mx-2 bg-white d-sm-none d-md-block" title="lire les commentaires"><i class="bi bi-chat-text"></i></button>
+                        <button type="button" class="btn rounded-circle py-1 px-2 mx-2 bg-white d-sm-none d-md-block" data-bs-toggle="modal" data-bs-target="#task<?=  $tasks[$i]->getId() ?>" title="lire les commentaires"><i class="bi bi-chat-text"></i></button>
                         <button class="btn rounded-circle py-1 px-2 mx-2 bg-primary" title="modifier"><i class="bi bi-pencil text-white"></i></button>
                         <form action="<?= URL ?>toDoList/s/<?= $tasks[$i]->getId() ?>" method="post">
                             <button class="btn rounded-circle py-1 px-2 mx-2 bg-danger" title="supprimer"><i class="bi bi-x-lg text-white"></i></button>
@@ -80,6 +80,25 @@ endif;
                     </div>
                 </div>
             </div>  
+            <!-- comments modal -->
+            <div class="modal fade" id="task<?=  $tasks[$i]->getId() ?>" tabindex="-1" aria-labelledby="comments" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-body d-flex flex-column text-center">
+                            <?php 
+                                if($tasks[$i]->getComments()){
+                                    echo $tasks[$i]->getComments() ;
+                                } else {?>
+                                    Pas de commentaire pour le moment...
+                                <?php } ?>
+                            
+                            
+                            <button type="button" class="btn btn-ming mt-5 mx-5" data-bs-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <?php endfor ; ?>
         </div>
     </div>
