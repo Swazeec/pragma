@@ -19,6 +19,8 @@ try {
                     $taskController->deleteTask($url[2]);
                 }  else if ($url[1] === 'a'){
                     $taskController->addTask();
+                } else if ($url[1] === 'm'){
+                    $taskController->modifyTask($url[2]);
                 }
                 break;
             default:

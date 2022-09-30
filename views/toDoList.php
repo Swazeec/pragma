@@ -73,7 +73,7 @@ endif;
                         if($tasks[$i]->getDueDate()){ echo $tasks[$i]->getDueDate(); } else { echo "/" ; };
                          ?></div>
                         <button type="button" class="btn rounded-circle py-1 px-2 mx-2 bg-white d-sm-none d-md-block" data-bs-toggle="modal" data-bs-target="#task<?=  $tasks[$i]->getId() ?>" title="lire les commentaires"><i class="bi bi-chat-text"></i></button>
-                        <button class="btn rounded-circle py-1 px-2 mx-2 bg-primary" title="modifier"><i class="bi bi-pencil text-white"></i></button>
+                        <button class="btn rounded-circle py-1 px-2 mx-2 bg-primary" data-bs-toggle="modal" data-bs-target="#modifyTask<?=  $tasks[$i]->getId() ?>" title="modifier"><i class="bi bi-pencil text-white"></i></button>
                         <form action="<?= URL ?>toDoList/s/<?= $tasks[$i]->getId() ?>" method="post">
                             <button class="btn rounded-circle py-1 px-2 mx-2 bg-danger" title="supprimer"><i class="bi bi-x-lg text-white"></i></button>
                         </form>
@@ -91,9 +91,62 @@ endif;
                                 } else {?>
                                     Pas de commentaire pour le moment...
                                 <?php } ?>
-                            
-                            
                             <button type="button" class="btn btn-ming mt-5 mx-5" data-bs-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- modify task modal -->
+            <div class="modal fade" id="modifyTask<?=  $tasks[$i]->getId() ?>" tabindex="-1" aria-labelledby="task modification" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <form action="<?=URL?>toDoList/m/<?= $tasks[$i]->getId() ?>" method="post" class="mb-4 text-start" id="modifyTaskForm">
+                                <div class="mb-3">
+                                    <label for="modifytaskname" class="form-label">Nom de la tâche</label>
+                                    <input type="text" class="form-control" id="modifytaskname" name="modifytaskname" value="<?=  $tasks[$i]->getName() ?>">
+                                    <div id="modifynameHelp" class="form-text d-none text-danger"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="modifycomment" class="form-label">Commentaires</label>
+                                    <textarea name="modifycomment" id="modifycomment" rows="4" class="form-control"><?=  $tasks[$i]->getComments() ?></textarea>
+                                    <div id="modifycommentHelp" class="form-text d-none text-danger"></div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col-12 col-md-6 mb-3 mb-md-0">
+                                        <label for="modifypriority" class="form-label">Priorité</label>
+                                        <select class="form-select" id="modifypriority" name="modifypriority">
+                                            <option value="1">Basse</option>
+                                            <option value="2">Moyenne</option>
+                                            <option value="3">Haute</option>
+                                        </select>
+                                        <div id="modifypriorityHelp" class="form-text d-none text-danger"></div>
+                                    </div>
+                                    <div class="col-12 col-md-6 mb-md-0">
+                                        <label for="modifyState" class="form-label">État</label>
+                                        <select class="form-select" id="modifyState" name="modifyState">
+                                            <option value="1">TO DO</option>
+                                            <option value="2">DOING</option>
+                                            <option value="3">DONE</option>
+                                            <option value="4">ARCHIVER</option>
+                                        </select>
+                                        </select>
+                                        <div id="modifyStateHelp" class="form-text d-none text-danger"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-12 col-md-6">
+                                    <div class="">
+                                        <label for="modifydate" class="form-label">Date butoir</label>
+                                        <input type="date" class="form-control" id="modifydate" name="modifydate">
+                                        <div id="modifydateHelp" class="form-text d-none text-danger"></div>
+                                    </div>
+                                </div>
+                                <div class="text-center mt-4 ">
+                                    <button type="button" class="btn btn-border-ming me-2" data-bs-dismiss="modal">Annuler</button>
+                                    <button type="submit" class="btn btn-ming ms-2" id="modifySubmitBtn">Modifier</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
