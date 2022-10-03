@@ -35,7 +35,7 @@ h1{
     width:120px;
 }
 .state{
-    width: 80px;
+    width: 90px;
 }
 .state-1, .delete, .alert-error{
     background-color: #FD7C7C;

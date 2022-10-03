@@ -35,11 +35,11 @@ class TasksController{
     public function addTask(){
         try{
             $this->taskManager->addTaskBd($_POST['taskname'],$_POST['comment'],$_POST['date'],$_POST['priority']);
-        $_SESSION['alert'] = [
-            "type" => "success",
-            "msg" => "Tâche ajoutée avec succès !"
-        ];
-        header('Location: '.URL.'toDoList');
+            $_SESSION['alert'] = [
+                "type" => "success",
+                "msg" => "Tâche ajoutée avec succès !"
+            ];
+            header('Location: '.URL.'toDoList');
         } catch(Exception $e){
             $_SESSION['alert'] = [
                 "type" => "error",
@@ -50,6 +50,19 @@ class TasksController{
     }
 
     public function modifyTask($id){
-        
+        try {
+            $this->taskManager->modifyTask($id, $_POST['modifytaskname'], $_POST['modifycomment'], $_POST['modifydate'], $_POST['modifypriority'], $_POST['modifyState']);
+            $_SESSION['alert'] = [
+                "type" => "success",
+                "msg" => "Tâche modifiée avec succès !"
+            ];
+            header('Location: '.URL.'toDoList');
+        } catch (Exception $e) {
+            $_SESSION['alert'] = [
+                "type" => "error",
+                "msg" => $e->getMessage()
+            ];
+            header('Location: '.URL.'toDoList');
+        }
     }
 }

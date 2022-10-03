@@ -17,6 +17,12 @@ function priorityVerification(value){
     }
     return true
 }
+function stateVerification(value){
+    if(value != 1 && value != 2 && value != 3 && value != 4){
+        return false
+    }
+    return true
+}
 function dateVerification(value){
     let today = new Date;
     let dateToCompare = new Date(value)
@@ -26,4 +32,4 @@ function dateVerification(value){
     return true
 }
 
-export{nameVerification,   commentVerification, priorityVerification , dateVerification}
+export{nameVerification,   commentVerification, priorityVerification , dateVerification, stateVerification}

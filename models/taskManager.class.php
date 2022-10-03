@@ -12,7 +12,7 @@ class TaskManager extends Model{
 
     // on ajoute les tâches de la BDD dans le tableau de tâches
     public function loadTasks(){
-        $req = 'SELECT id, name, comments, DATE_FORMAT(dueDate, "%d/%m/%Y") AS dueDate, priority_id, state_id from tasks';
+        $req = 'SELECT id, name, comments, dueDate, priority_id, state_id from tasks';
         $stmt = $this->getBdd()->prepare($req);
         $stmt->execute();
         $myTasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -29,7 +29,7 @@ class TaskManager extends Model{
     public function getTaskById($id){
         for($i = 0; $i < count($this->tasks); $i++){
             if($this->tasks[$i]->getId() == $id){
-                return $this->tasks[$i]->getId();
+                return $this->tasks[$i];
             }
         }
         throw new Exception("Cette tâche n'existe pas...");
@@ -93,6 +93,14 @@ class TaskManager extends Model{
         return $priority;
     }
 
+    public function stateValidation($value){
+        $state = intval(htmlspecialchars($value));
+        if($state !== 1 && $state !== 2 && $state !== 3 && $state !== 4){
+            return false;
+        }
+        return $state;
+    }
+
     public function addTaskBd($name, $comments, $dueDate, $priority){
 
         $comments = $this->commentsValidation($comments);
@@ -117,6 +125,43 @@ class TaskManager extends Model{
             }
         } else {
             throw new Exception("Une erreur est survenue lors de l'ajout de votre tâche, veuillez réessayer");
+        } 
+
+    }
+
+    public function modifyTask($id, $taskName, $comments, $dueDate, $priority, $state){
+        $id = intval(htmlspecialchars($id));
+        $comments = $this->commentsValidation($comments);
+        $taskName = $this->nameValidation($taskName);
+        $dueDate = $this->dateValidation($dueDate);
+        $priority = $this->priorityValidation($priority);
+        $state = $this->stateValidation($state);
+
+        if($taskName !== false && $comments !== false && $dueDate !== false && $priority !== false && $state !== false){
+
+            $req = 'UPDATE tasks 
+                    SET name = :name, comments = :comments, dueDate = :dueDate, priority_id = :priority, state_id = :state
+                    WHERE id = :id';
+            
+            $stmt = $this->getBdd()->prepare($req);
+            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+            $stmt->bindValue(':name', $taskName, PDO::PARAM_STR);
+            $stmt->bindValue(':comments', $comments, PDO::PARAM_STR);
+            $stmt->bindValue(':dueDate', $dueDate, PDO::PARAM_STR);
+            $stmt->bindValue(':priority', $priority, PDO::PARAM_INT);
+            $stmt->bindValue(':state', $state, PDO::PARAM_INT);
+            $result = $stmt->execute();
+            if($result > 0){
+                $this->getTaskById($id)->setName($taskName);
+                $this->getTaskById($id)->setComments($comments);
+                $this->getTaskById($id)->setDueDate($dueDate);
+                $this->getTaskById($id)->setPriority($priority);
+                $this->getTaskById($id)->setState($state);
+            } else{
+                throw new Exception("Impossible de modifier cette tâche");
+            }
+        } else {
+            throw new Exception("Une erreur est survenue lors de la modification de votre tâche, veuillez réessayer");
         } 
 
     }
