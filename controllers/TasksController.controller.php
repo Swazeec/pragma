@@ -64,5 +64,42 @@ class TasksController{
             ];
             header('Location: '.URL.'toDoList');
         }
+
+        
+    }
+    
+    public function filterTaskByState($state){
+            switch($state){
+                case 'todo':
+                    $id = 1;
+                    break;
+                case 'doing':
+                    $id = 2;
+                    break;
+                case 'done':
+                    $id = 3;
+                    break;
+                case 'archived':
+                    $id = 4;
+                    break;
+
+                default:
+                throw new Exception("La page demandée n'existe pas");
+            }
+            $this->taskManager->filterTaskByState($id);
+            $this->showTasks();
+        }
+
+    public function filterTasks(){
+        if($_POST['stateFilter'] == 0 && $_POST['priorityFilter'] == 0){
+            header('Location: '.URL.'toDoList');
+        } elseif($_POST['stateFilter'] != 0 && $_POST['priorityFilter'] == 0){
+            $this->taskManager->filterTasksByState($_POST['stateFilter']);
+        } elseif($_POST['stateFilter'] == 0 && $_POST['priorityFilter'] != 0){
+            $this->taskManager->filterTasksbyPriority($_POST['priorityFilter']);
+        } else {
+            $this->taskManager->filterTasks($_POST['stateFilter'], $_POST['priorityFilter']);
+        }
+        $this->showTasks();
     }
 }

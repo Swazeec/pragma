@@ -4,6 +4,7 @@ require_once('models/task.class.php');
 
 class TaskManager extends Model{
     private $tasks; // tableau de tâches
+    private $filteredTasks;
 
     // on ajoute une tâche au tableau de tâches
     public function addTask($task){
@@ -166,4 +167,59 @@ class TaskManager extends Model{
 
     }
 
+    public function filterTaskByState($id){
+        $req = 'SELECT id, name, comments, dueDate, priority_id, state_id FROM tasks WHERE state_id = :id';
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $myTasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach($myTasks as $task){
+            $t = new task($task['id'], $task['name'], $task['comments'], $task['dueDate'], $task['priority_id'], $task['state_id']);
+            $this->filteredTasks[] = $t;
+        }
+       
+        $this->tasks = $this->filteredTasks;
+    
+    }
+
+    public function filterTasksByState($state){
+        $req = 'SELECT * FROM tasks WHERE state_id = :sid';
+        
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(':sid', $state);
+        $stmt->execute();
+        $myTasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach($myTasks as $task){
+            $t = new task($task['id'], $task['name'], $task['comments'], $task['dueDate'], $task['priority_id'], $task['state_id']);
+            $this->filteredTasks[] = $t;
+        }
+        $this->tasks = $this->filteredTasks;
+    }
+    public function filterTasksbyPriority($priority){
+        $req = 'SELECT * FROM tasks WHERE priority_id = :pid';
+        
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(':pid', $priority);
+        $stmt->execute();
+        $myTasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach($myTasks as $task){
+            $t = new task($task['id'], $task['name'], $task['comments'], $task['dueDate'], $task['priority_id'], $task['state_id']);
+            $this->filteredTasks[] = $t;
+        }
+        $this->tasks = $this->filteredTasks;
+    }
+    public function filterTasks($state, $priority){
+        $req = 'SELECT * FROM tasks WHERE state_id = :sid && priority_id = :pid';
+        
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(':sid', $state);
+        $stmt->bindValue(':pid', $priority);
+        $stmt->execute();
+        $myTasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach($myTasks as $task){
+            $t = new task($task['id'], $task['name'], $task['comments'], $task['dueDate'], $task['priority_id'], $task['state_id']);
+            $this->filteredTasks[] = $t;
+        }
+        $this->tasks = $this->filteredTasks;
+    }
 }

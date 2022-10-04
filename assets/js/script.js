@@ -7,6 +7,15 @@ newTaskBtn.addEventListener('click', ()=>{
     newTaskForm.classList.toggle('d-none')
 })
 
+// affichage filtres
+
+let filterBtn = document.getElementById('filter')
+let filterForm = document.getElementById('filterForm')
+
+filterBtn.addEventListener('click', ()=>{
+    filterForm.classList.toggle('d-none')
+})
+
 // gestion des états
 let toDos = [...document.getElementsByClassName('state-1')]
 let doings = [...document.getElementsByClassName('state-2')]
