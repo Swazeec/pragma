@@ -67,28 +67,6 @@ class TasksController{
 
         
     }
-    
-    public function filterTaskByState($state){
-            switch($state){
-                case 'todo':
-                    $id = 1;
-                    break;
-                case 'doing':
-                    $id = 2;
-                    break;
-                case 'done':
-                    $id = 3;
-                    break;
-                case 'archived':
-                    $id = 4;
-                    break;
-
-                default:
-                throw new Exception("La page demandée n'existe pas");
-            }
-            $this->taskManager->filterTaskByState($id);
-            $this->showTasks();
-        }
 
     public function filterTasks(){
         if($_POST['stateFilter'] == 0 && $_POST['priorityFilter'] == 0){

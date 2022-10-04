@@ -21,12 +21,6 @@ try {
                     $taskController->addTask();
                 } else if ($url[1] === 'm'){
                     $taskController->modifyTask($url[2]);
-                } else if ($url[1] === 'state'){
-                    if(!empty($url[2])){
-                        $taskController->filterTaskByState($url[2]);
-                    } else {
-                        throw new Exception("La page que vous demandez n'existe pas...");
-                    }
                 } else if($url[1] === 'f'){
                     $taskController->filterTasks();
                 } else {
