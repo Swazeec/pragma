@@ -25,6 +25,14 @@ CREATE TABLE IF NOT EXISTS tasks (
     FOREIGN KEY (state_id) REFERENCES states(id)
 ) engine = InnoDB;
 
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    firstname VARCHAR(20) NOT NULL,
+    lastname VARCHAR(30) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(60) NOT NULL,
+) engine = InnoDB;
+
 -- add content
 INSERT INTO priorities (name) VALUES ("basse");
 INSERT INTO priorities (name) VALUES ("moyenne");
@@ -46,3 +54,6 @@ INSERT INTO tasks (name, comments, priority_id) VALUES ('This is the sixth task 
 INSERT INTO tasks (name, dueDate, priority_id) VALUES ('This is the seventh task to do', '2022-01-14', 2);
 INSERT INTO tasks (name, dueDate, priority_id) VALUES ('This is the eighth task to do', '2022-06-24', 1);
 INSERT INTO tasks (name, dueDate, priority_id) VALUES ('This is the ninth task to do', '2021-11-19', 2);
+
+INSERT INTO users(firstname, lastname, email, password) VALUES('Antoine', 'Venel', 'venel.antoine@hotmail.fr', '$2y$10$hKOUDYyO9KUy/hk6itKQK.nR2ss6luYH8.sSwprqQ8QOP8.e/kI8G');
+INSERT INTO users(firstname, lastname, email, password) VALUES('Soizic', 'Venel', 'venel.soizic@hotmail.fr', '$2y$10$5ZUEA7RxVesy.GVjxNGc9O6d.8FzKqn9DCOSTxxVGA7Zmshv7hzda');

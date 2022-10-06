@@ -17,10 +17,18 @@
 <body>
     <main class="container-fluid ">
         <header class="row d-flex align-items-center px-2">
-            <div class="col">
-                <a href="<?=URL?>"><img id="logo" class="img-fluid" src="<?=URL?>assets/images/pragma-logo-transparent.svg" alt="Logo Pragma"></a>
+            <div class="col-auto">
+                <a href="<?=URL?>"><img id="logo" class="" src="<?=URL?>assets/images/pragma-logo-transparent.svg" alt="Logo Pragma"></a>
             </div>
-            <h1 class="col "><?= $title ?></h1>
+            <h1 class="col  text-center"><?= $title ?></h1>
+            <?php 
+                if(!empty($_SESSION['connect']) && $_SESSION['connect'] == 'userConnected'){ ?>
+                    <a href="<?=URL?>logout" class="col-auto btn  text-center float-end">
+                        <i class="bi bi-x-lg"></i>
+                        <p class="d-none d-md-block">log out</p>
+                    </a>
+                <?php }
+            ?>
         </header>
         <?= $content ?>
         <footer class="row fixed-bottom py-1 px-2">
